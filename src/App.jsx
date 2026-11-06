@@ -1,25 +1,29 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
-  ArrowDownRight, ArrowRight, ArrowUpRight, Code2, Github, Linkedin,
+  ArrowDownRight, ArrowUpRight, Code2, Github, Linkedin,
   Menu, X, Globe2, Database, Layers3, Smartphone, Wrench, Mail,
-  Terminal, ExternalLink, CheckCircle2
+  Terminal, GraduationCap, Languages, MapPin
 } from 'lucide-react'
+import kolithaImg from './Assets/kolitha.png';
+import hopehub from './Assets/image.png';
 
 const GITHUB = 'https://github.com/VimukthiKolitha'
 const LINKEDIN = 'https://www.linkedin.com/in/vimukthi-kolitha-a53503329/'
+const EMAIL = 'vimukthikolitah@gmail.com'
 
 const skills = [
-  { name: 'Frontend', items: ['React', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS'], icon: Layers3 },
-  { name: 'Backend', items: ['Node.js', 'Express.js', 'REST APIs'], icon: Terminal },
-  { name: 'Database', items: ['MongoDB', 'Mongoose'], icon: Database },
-  { name: 'Tools', items: ['Git', 'GitHub', 'Postman'], icon: Wrench },
+  { name: 'Languages', items: ['Java', 'C', 'C++', 'JavaScript', 'Python', 'PHP', 'Kotlin'], icon: Code2 },
+  { name: 'Frontend', items: ['React', 'HTML5', 'CSS3', 'Bootstrap', 'Tailwind CSS'], icon: Layers3 },
+  { name: 'Backend', items: ['Node.js', 'Express.js', 'PHP', 'REST APIs'], icon: Terminal },
+  { name: 'Databases', items: ['MongoDB', 'MySQL', 'MS SQL Server', 'PostgreSQL'], icon: Database },
+  { name: 'Tools', items: ['Git', 'GitHub', 'Postman', 'VS Code', 'Eclipse', 'Visual Studio', 'Android Studio', 'Dev C++', 'RStudio'], icon: Wrench },
 ]
 
 const services = [
   { number: '01', title: 'Business websites', description: 'Responsive, polished websites that help businesses explain what they do and build trust online.', icon: Globe2 },
   { number: '02', title: 'Full-stack applications', description: 'Web applications with practical frontend experiences, backend APIs and database integration.', icon: Code2 },
-  { number: '03', title: 'Website improvements', description: 'Responsive fixes, UI refinements, bug fixing and improvements to existing websites.', icon: Smartphone },
+  { number: '03', title: 'Mobile & website improvements', description: 'Android apps in Kotlin, plus responsive fixes, UI refinements and bug fixing for existing websites.', icon: Smartphone },
 ]
 
 const projects = [
@@ -28,25 +32,57 @@ const projects = [
     category: 'ACADEMIC / RESEARCH PROJECT',
     title: 'HopeHub',
     description: 'An integrated recovery-support application concept focused on assessment, recovery check-ins and connecting users with support.',
-    tags: ['Web / Mobile', 'Backend integration', 'Research project'],
-    status: 'Project details to be added',
+    tags: ['Mobile', 'Backend integration', 'Research project'],
+    status: 'Academic project',
+    art: hopehub,
+    caption: 'SUPPORT · RECOVERY · CONNECTION',
   },
   {
     number: '02',
-    category: 'WEB DEVELOPMENT',
-    title: 'Business website',
-    description: 'A space for a responsive business website project. Replace this card with a completed project, screenshots and a live demo.',
-    tags: ['React', 'Tailwind CSS', 'Responsive UI'],
-    status: 'Add your project',
+    category: 'FULL-STACK WEB APP',
+    title: 'Local Helaya',
+    description: 'An online food delivery platform where customers browse menus, select items, place orders and pay securely, with their food delivered to their door.',
+    tags: ['Node.js', 'Express.js', 'React', 'MongoDB', 'Postman', 'EmailJS'],
+    status: '2024',
+    art: 'browser',
+    caption: 'FOOD · ORDERS · PAYMENTS',
   },
   {
     number: '03',
-    category: 'FULL-STACK DEVELOPMENT',
-    title: 'Web application',
-    description: 'A space for a full-stack application featuring authentication, API integration and database operations.',
-    tags: ['React', 'Node.js', 'Database'],
-    status: 'Add your project',
+    category: 'ANDROID APP',
+    title: 'To-Do App',
+    description: 'A productivity app for managing daily tasks: create tasks with a name, date and time, view them in an organized RecyclerView list, and edit or delete as priorities change.',
+    tags: ['Kotlin', 'Android Studio'],
+    status: '2024',
+    art: 'dashboard',
+    caption: 'TASKS · PRODUCTIVITY · MOBILE',
   },
+  {
+    number: '04',
+    category: 'JAVA APPLICATION',
+    title: 'Student Management',
+    description: 'A system that helps educational institutions manage student information efficiently, simplifying administrative work and centralizing student data.',
+    tags: ['Java', 'Eclipse IDE', 'MySQL'],
+    status: '2024',
+    art: 'dashboard',
+    caption: 'STUDENTS · RECORDS · ADMIN',
+  },
+  {
+    number: '05',
+    category: 'WEB APPLICATION',
+    title: 'Event Management',
+    description: 'A platform that streamlines planning, organization and execution of events, improving coordination for organizers, attendees and stakeholders.',
+    tags: ['PHP', 'JavaScript', 'HTML', 'CSS', 'MySQL'],
+    status: '2023',
+    art: 'browser',
+    caption: 'EVENTS · PLANNING · COORDINATION',
+  },
+]
+
+const education = [
+  { years: '2023 — 2026', title: 'BSc (Hons) in Information Technology', place: 'SLIIT, Malabe', note: 'Undergraduate · Y4S2' },
+  { years: '2021', title: 'G.C.E. Advanced Level', place: 'A/L', note: '' },
+  { years: '2018', title: 'G.C.E. Ordinary Level', place: 'O/L', note: '' },
 ]
 
 const fadeUp = {
@@ -64,13 +100,25 @@ function SectionHeading({ eyebrow, title, detail }) {
   )
 }
 
+function ProjectArt({ type, number, caption, index }) {
+  return (
+    <div className={`project-art project-art-${(index % 3) + 1}`}>
+      <div className="project-art-top"><span>PROJECT / {number}</span><span className="art-dot" /></div>
+      {type === 'hope' ? <div className="hopehub-art"><span className="hope-mark">H</span><span>hopehub</span><small>RECOVERY SUPPORT</small></div> :
+       type === 'browser' ? <div className="browser-art"><div /><div /><div /><div /></div> :
+       <div className="dashboard-art"><div className="dash-side" /><div className="dash-main"><i /><i /><i /><i /></div></div>}
+      <span className="art-caption">{caption}</span>
+    </div>
+  )
+}
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const closeMenu = () => setMenuOpen(false)
 
   const nav = [
     ['About', '#about'], ['Skills', '#skills'], ['Services', '#services'],
-    ['Projects', '#projects'], ['Contact', '#contact'],
+    ['Projects', '#projects'], ['Education', '#education'], ['Contact', '#contact'],
   ]
 
   return (
@@ -79,7 +127,6 @@ function App() {
       <div className="ambient ambient-two" />
       <header className="site-header">
         <a href="#home" className="brand" onClick={closeMenu} aria-label="Go to home">
-          <span className="brand-mark">VK</span>
           <span>vimukthi<span className="brand-dot">.</span></span>
         </a>
         <nav className={`nav-links ${menuOpen ? 'nav-open' : ''}`}>
@@ -96,13 +143,13 @@ function App() {
       <main>
         <section className="hero section-wrap" id="home">
           <motion.div className="hero-copy" initial="hidden" animate="visible" variants={fadeUp}>
-            <div className="availability"><span className="availability-dot" /> OPEN TO FREELANCE OPPORTUNITIES</div>
+            <p className="availability"><span className="availability-dot" /> Open to freelancer opportunities </p>
             <p className="hero-intro">Hello, I'm</p>
             <h1>G.R Vimukthi<br /><span>Kolitha.</span></h1>
             <h2 className="hero-role">Full-Stack Web Developer</h2>
             <p className="hero-description">
-              I build modern, responsive web experiences — from clean user interfaces
-              to functional applications powered by reliable backend systems.
+              Software engineering undergraduate at SLIIT. I build responsive web and
+              mobile apps, from clean user interfaces to reliable backend systems.
             </p>
             <div className="hero-actions">
               <a className="button button-primary" href="#projects">Explore my work <ArrowUpRight size={17} /></a>
@@ -126,15 +173,15 @@ function App() {
                 <p><span className="code-muted">01</span> <span className="code-purple">const</span> developer = {'{'}</p>
                 <p><span className="code-muted">02</span> &nbsp;name: <span className="code-green">'Vimukthi'</span>,</p>
                 <p><span className="code-muted">03</span> &nbsp;role: <span className="code-green">'Full-Stack Developer'</span>,</p>
-                <p><span className="code-muted">04</span> &nbsp;focus: [</p>
-                <p><span className="code-muted">05</span> &nbsp;&nbsp;<span className="code-orange">'Web Development'</span>,</p>
-                <p><span className="code-muted">06</span> &nbsp;&nbsp;<span className="code-orange">'Problem Solving'</span></p>
+                <p><span className="code-muted">04</span> &nbsp;stack: [</p>
+                <p><span className="code-muted">05</span> &nbsp;&nbsp;<span className="code-orange">'React'</span>, <span className="code-orange">'Node.js'</span>,</p>
+                <p><span className="code-muted">06</span> &nbsp;&nbsp;<span className="code-orange">'MongoDB'</span>, <span className="code-orange">'Kotlin'</span></p>
                 <p><span className="code-muted">07</span> &nbsp;],</p>
-                <p><span className="code-muted">08</span> &nbsp;available: <span className="code-blue">true</span></p>
+                <p><span className="code-muted">08</span> &nbsp;seeking: <span className="code-blue">'IT internship'</span></p>
                 <p><span className="code-muted">09</span> {'}'}</p>
                 <p className="code-cursor"><span className="code-muted">10</span> <span className="cursor-block" /></p>
               </div>
-              <div className="window-footer"><span><span className="footer-pulse" /> Available for new projects</span><span>UTF-8&nbsp;&nbsp; JavaScript</span></div>
+              <div className="window-footer"><span><span className="footer-pulse" /> Available for internships</span><span>UTF-8&nbsp;&nbsp; JavaScript</span></div>
             </div>
             <div className="floating-chip chip-top"><Code2 size={15} /> Build with purpose</div>
             <div className="floating-chip chip-bottom"><span className="chip-spark">✳</span> Design · Develop · Deliver</div>
@@ -146,20 +193,27 @@ function App() {
           <SectionHeading eyebrow="A LITTLE ABOUT ME" title={<>Turning ideas into<br /><span className="text-gradient">digital experiences.</span></>} />
           <div className="about-grid">
             <div className="about-main">
-              <p className="about-lead">I'm an aspiring full-stack developer and final-year university student who enjoys turning real-world problems into useful digital solutions.</p>
-              <p className="body-copy">I work across frontend and backend development, with an interest in building clean interfaces, practical application features and reliable integrations. I'm currently growing my professional experience and looking forward to collaborating with people who have ideas worth building.</p>
+              <div>
+                <img src={kolithaImg} alt="Vimukthi Kolitha"/>
+              </div>
+              <p className="body-copy">
+                I'm a software engineering undergraduate pursuing a BSc (Hons) in Information Technology
+                at SLIIT, Malabe. With a solid foundation in software development and a passion for
+                problem-solving, I'm eager to apply what I've learned in a real-world IT environment,
+                and to grow into a skilled, well-regarded IT professional.
+              </p>
               <a href={LINKEDIN} target="_blank" rel="noreferrer" className="text-link">Connect with me on LinkedIn <ArrowUpRight size={16} /></a>
             </div>
             <div className="about-facts">
-              <div className="fact-card"><span className="fact-number">01</span><div><strong>Full-stack mindset</strong><p>From user interface to server-side logic.</p></div></div>
-              <div className="fact-card"><span className="fact-number">02</span><div><strong>Always learning</strong><p>Improving through projects and practice.</p></div></div>
-              <div className="fact-card"><span className="fact-number">03</span><div><strong>Collaborative</strong><p>Focused on communication and useful outcomes.</p></div></div>
+              <div className="fact-card"><span className="fact-number">01</span><div><strong>Undergraduate at SLIIT</strong><p>Y4S2 BSc (Hons) in IT Specializing in Information Technology</p></div></div>
+              <div className="fact-card"><span className="fact-number">02</span><div><strong>Web, mobile & desktop</strong><p>Projects built with the MERN stack, PHP, Java and Kotlin.</p></div></div>
+              <div className="fact-card"><span className="fact-number">03</span><div><strong>Based in Kegalle</strong><p>Sri Lanka · Fluent in Sinhala and English.</p></div></div>
             </div>
           </div>
         </section>
 
         <section className="skills section-wrap section-pad" id="skills">
-          <SectionHeading eyebrow="MY TOOLKIT" title={<>Technologies I <span className="text-gradient">work with.</span></>} detail="A growing toolkit for designing, developing and delivering web applications." />
+          <SectionHeading eyebrow="MY TOOLKIT" title={<>Technologies I <span className="text-gradient">work with.</span></>} detail="A growing toolkit for designing, developing and delivering web and mobile applications." />
           <div className="skill-grid">
             {skills.map(({ name, items, icon: Icon }, index) => (
               <motion.div className="skill-card" key={name} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={fadeUp} transition={{ delay: index * 0.08 }}>
@@ -169,7 +223,6 @@ function App() {
               </motion.div>
             ))}
           </div>
-          <p className="small-note">Only keep technologies here that you can confidently discuss and use. Add or remove items as your skills develop.</p>
         </section>
 
         <section className="services section-wrap section-pad" id="services">
@@ -188,45 +241,61 @@ function App() {
 
         <section className="projects section-wrap section-pad" id="projects">
           <div className="projects-heading">
-            <SectionHeading eyebrow="SELECTED WORK" title={<>Projects that show<br /><span className="text-gradient">how I think.</span></>} detail="A selection of work and project spaces. More detailed case studies will be added as each project is prepared for public viewing." />
+            <SectionHeading eyebrow="SELECTED WORK" title={<>Projects that show<br /><span className="text-gradient">how I think.</span></>} detail="Academic and personal projects across web, mobile and desktop. More code and case studies are on my GitHub." />
             <a href={GITHUB} target="_blank" rel="noreferrer" className="text-link">View GitHub <ArrowUpRight size={16} /></a>
           </div>
           <div className="project-grid">
             {projects.map((project, index) => (
-              <motion.article className="project-card" key={project.number} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={fadeUp} transition={{ delay: index * 0.08 }}>
-                <div className={`project-art project-art-${index + 1}`}>
-                  <div className="project-art-top"><span>PROJECT / {project.number}</span><span className="art-dot" /></div>
-                  {index === 0 ? <div className="hopehub-art"><span className="hope-mark">H</span><span>hopehub</span><small>RECOVERY SUPPORT</small></div> :
-                   index === 1 ? <div className="browser-art"><div /><div /><div /><div /></div> :
-                   <div className="dashboard-art"><div className="dash-side" /><div className="dash-main"><i /><i /><i /><i /></div></div>}
-                  <span className="art-caption">{index === 0 ? 'SUPPORT · RECOVERY · CONNECTION' : index === 1 ? 'DESIGN · RESPONSIVE · WEB' : 'PRODUCT · DATA · EXPERIENCE'}</span>
-                </div>
+              <motion.article className="project-card" key={project.number} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={fadeUp} transition={{ delay: (index % 3) * 0.08 }}>
+                <ProjectArt art={project.art} number={project.number} caption={project.caption} index={index} />
                 <div className="project-info">
                   <p className="eyebrow">{project.category}</p>
                   <h3>{project.title}</h3>
                   <p className="project-description">{project.description}</p>
                   <div className="project-tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
-                  <div className="project-bottom"><span>{project.status}</span><span className="project-placeholder"><ExternalLink size={14} /> Link to be added</span></div>
+                  <div className="project-bottom">
+                    <span>{project.status}</span>
+                    <a className="project-placeholder" href={GITHUB} target="_blank" rel="noreferrer"><Github size={14} /> GitHub</a>
+                  </div>
                 </div>
               </motion.article>
             ))}
           </div>
-          <p className="project-disclaimer"><CheckCircle2 size={15} /> Portfolio starter content: replace placeholder project cards with verified project details, screenshots and links before publishing.</p>
+        </section>
+
+        <section className="education section-wrap section-pad" id="education">
+          <SectionHeading eyebrow="BACKGROUND" title={<>Where I've been <span className="text-gradient">learning.</span></>} />
+          <div className="edu-grid">
+            {education.map(({ years, title, place, note }) => (
+              <div className="edu-card" key={years}>
+                <p className="edu-years"><GraduationCap size={16} /> {years}</p>
+                <h3>{title}</h3>
+                <p>{place}{note && ` · ${note}`}</p>
+              </div>
+            ))}
+          </div>
+          <div className="language-row">
+            <Languages size={18} />
+            <strong>Languages</strong>
+            <div className="skill-tags"><span>Sinhala (Native)</span><span>English</span></div>
+          </div>
         </section>
 
         <section className="contact section-wrap section-pad" id="contact">
           <div className="contact-panel">
             <div className="contact-glow" />
-            <p className="eyebrow">HAVE A PROJECT IN MIND?</p>
+            <p className="eyebrow">LOOKING FOR AN INTERN?</p>
             <h2>Let's build something<br /><span className="text-gradient">meaningful.</span></h2>
-            <p className="contact-description">Have an idea, a project or an opportunity to discuss? I'd be happy to connect and explore how I can help.</p>
+            <p className="contact-description">I'm actively seeking an IT-related internship to grow my technical skills and contribute to your team. Have an opportunity or an idea? Let's talk.</p>
             <div className="contact-actions">
-              <a className="button button-primary" href={LINKEDIN} target="_blank" rel="noreferrer">Connect on LinkedIn <ArrowUpRight size={17} /></a>
-              <a className="button button-secondary" href={GITHUB} target="_blank" rel="noreferrer">Explore my GitHub <Github size={17} /></a>
+              <a className="button button-primary" href={`mailto:${EMAIL}`}>Email me <Mail size={17} /></a>
+              <a className="button button-secondary" href={LINKEDIN} target="_blank" rel="noreferrer">Connect on LinkedIn <ArrowUpRight size={17} /></a>
             </div>
             <div className="contact-socials">
+              <a href={`mailto:${EMAIL}`}><Mail size={17} /> {EMAIL}</a>
               <a href={LINKEDIN} target="_blank" rel="noreferrer"><Linkedin size={17} /> LinkedIn</a>
               <a href={GITHUB} target="_blank" rel="noreferrer"><Github size={17} /> GitHub</a>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '.45rem' }}><MapPin size={17} /> Kegalle, Sri Lanka</span>
             </div>
           </div>
         </section>
